@@ -8,7 +8,26 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RadioTest {
-    Radio radio = new Radio();
+    int amountStations = 77;
+    Radio radio = new Radio(amountStations);
+
+    @Test
+    void shouldSetAmountStations() {
+        assertEquals(amountStations, radio.getAmountStations());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"-5", "3", "10"})
+    void shouldSetAmountStationsWithin(int amountStations) {
+        Radio radio = new Radio(amountStations);
+        assertEquals(10, radio.getAmountStations());
+    }
+
+    @Test
+    void shouldSetAmountStationsDefault() {
+        Radio radio = new Radio();
+        assertEquals(10, radio.getAmountStations());
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/radioStation.csv")
@@ -18,8 +37,9 @@ class RadioTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"-1", "10"})
+    @CsvSource({"-1", "0", "11"})
     void shouldSetCurrentRadioWithout(int numStation) {
+        Radio radio = new Radio();
         radio.setCurrentRadio(numStation);
         assertEquals(0, radio.getCurrentRadio());
     }
@@ -32,7 +52,7 @@ class RadioTest {
 
     @Test
     void shouldSwitchNextRadioWithout() {
-        radio.setCurrentRadio(9);
+        radio.setCurrentRadio(amountStations);
         radio.nextRadio();
         assertEquals(0, radio.getCurrentRadio());
     }
@@ -47,16 +67,20 @@ class RadioTest {
     @Test
     void shouldSwitchPrevRadioWithout() {
         radio.prevRadio();
-        assertEquals(9, radio.getCurrentRadio());
+        assertEquals(amountStations, radio.getCurrentRadio());
     }
 
     @Test
-    void shouldTurnUpVolume() {
-        //Увеличиваем "volume" более 10
-        for (int i = 0; i < 11; i++) {
-            radio.turnUpVolume();
-        }
-        assertEquals(10, radio.getVolume());
+    void shouldTurnUpVolumeWithin() {
+        radio.turnUpVolume();
+        assertEquals(1, radio.getVolume());
+    }
+
+    @Test
+    void shouldTurnUpVolumeWithout() {
+        radio.setVolume(100);
+        radio.turnUpVolume();
+        assertEquals(100, radio.getVolume());
     }
 
     @Test
