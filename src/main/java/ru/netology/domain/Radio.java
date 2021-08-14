@@ -1,10 +1,15 @@
 package ru.netology.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
 public class Radio {
 
     private final int amountStations;
     private int currentRadio;
-    private int volume; //0-100
+    @Setter
+    private int volume; //0-100, the @Setter only for testing
 
     public Radio() {this(10);}
 
@@ -12,28 +17,11 @@ public class Radio {
         this.amountStations = Math.max(amountStations, 10);
     }
 
-    public int getAmountStations() {
-        return amountStations;
-    }
-
-    public int getCurrentRadio() {
-        return currentRadio;
-    }
-
     public void setCurrentRadio(int currentRadio) {
         if (currentRadio < 0 || currentRadio > amountStations) {
             return;
         }
         this.currentRadio = currentRadio;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    //only for testing
-    public void setVolume(int volume) {
-        this.volume = volume;
     }
 
     public void nextRadio() {
