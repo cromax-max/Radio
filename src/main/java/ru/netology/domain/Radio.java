@@ -18,14 +18,14 @@ public class Radio {
     }
 
     public void setCurrentRadio(int currentRadio) {
-        if (currentRadio < 0 || currentRadio > amountStations) {
+        if (currentRadio < 0 || currentRadio > (amountStations - 1)) {
             return;
         }
         this.currentRadio = currentRadio;
     }
 
     public void nextRadio() {
-        if (currentRadio == amountStations) {
+        if (currentRadio == (amountStations - 1)) {
             currentRadio = 0;
         } else {
             currentRadio++;
@@ -34,7 +34,7 @@ public class Radio {
 
     public void prevRadio() {
         if (currentRadio == 0) {
-            currentRadio = amountStations;
+            currentRadio = (amountStations - 1);
         } else {
             currentRadio--;
         }

@@ -52,7 +52,7 @@ class RadioTest {
 
     @Test
     void shouldSwitchNextRadioWithout() {
-        radio.setCurrentRadio(amountStations);
+        radio.setCurrentRadio((amountStations - 1));
         radio.nextRadio();
         assertEquals(0, radio.getCurrentRadio());
     }
@@ -67,7 +67,7 @@ class RadioTest {
     @Test
     void shouldSwitchPrevRadioWithout() {
         radio.prevRadio();
-        assertEquals(amountStations, radio.getCurrentRadio());
+        assertEquals((amountStations - 1), radio.getCurrentRadio());
     }
 
     @Test
